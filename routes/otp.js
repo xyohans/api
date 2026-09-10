@@ -30,7 +30,10 @@ router.post('/send-otp', async (req, res) => {
   const expireAt = Date.now() + 5 * 60 * 1000;
 
   otpStore.set(email, { otp, expireAt });
-
+   return res.status(200).json({
+      success: true,
+      message: 'OTP sent successfully',
+    });
   try {
     await transporter.sendMail({
       from: `"ChatApp" <${process.env.EMAIL_USER}>`,
@@ -43,10 +46,6 @@ router.post('/send-otp', async (req, res) => {
             </div>`,
     });
 
-    return res.status(200).json({
-      success: true,
-      message: 'OTP sent successfully',
-    });
   } catch (e) {
     console.error("Failed to send email:", e);
     return res.status(500).json({
