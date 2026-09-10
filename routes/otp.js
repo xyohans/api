@@ -38,16 +38,14 @@ router.post('/send-otp', async (req, res) => {
       message: 'OTP sent successfully',
     });
   try {
-    await transporter.sendMail({
+        const info = await transporter.sendMail({
       from: `"ChatApp" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: `Your OTP is ${otp}`,
-      html: `<div>
-              <h1>Welcome to ChatApp</h1>
-              <p>Your code is: <b>${otp}</b></p>
-              <p>It will expire in 5 minutes.</p>
-            </div>`,
+      html: `<div><h1>Welcome to ChatApp</h1><p>Your code is: <b>${otp}</b></p><p>It will expire in 5 minutes.</p></div>`,
     });
+
+    console.log('Email send result:', info); 
 
   } catch (e) {
     console.error("Failed to send email:", e);
