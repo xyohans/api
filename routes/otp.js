@@ -45,7 +45,7 @@ router.post('/send-otp', async (req, res) => {
       html: `<div><h1>Welcome to ChatApp</h1><p>Your code is: <b>${otp}</b></p><p>It will expire in 5 minutes.</p></div>`,
     });
 
-    console.log('Email send result:', info); 
+    console.log('Email send result:', JSON.stringify(info, null, 2));
 
   } catch (e) {
     console.error("Failed to send email:", e);
